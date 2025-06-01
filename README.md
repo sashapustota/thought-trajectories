@@ -4,6 +4,7 @@
 
 *Master Thesis*  
 *Aarhus University, Cognitive Science MSc.*
+*Supervised by Nicolas Legrand*
 
 ---
 
@@ -24,10 +25,14 @@ Two notebooks are provided to demonstrate the end-to-end process:
 
 Consider the following model-generated reasoning completion for a mathematical problem:
 
+<pre>
+```
 Step 1: Let’s denote the unknown as x.
 Step 2: We know that x + 3 = 7.
 Step 3: Subtract 3 from both sides to get x = 4.
 Step 4: Therefore, the answer is 4.
+```
+</pre>
 
 By segmenting a completion into discrete reasoning steps, we can extract the corresponding hidden state vector for each step. Each of these vectors can be interpreted as a point in a high-dimensional representation space, effectively mapping out the model’s evolving internal state as it proceeds through its reasoning process. Sequentially connecting these points yields a trajectory—a “walk” through the model’s latent reasoning space—which reflects how the model incrementally constructs a solution.
 
@@ -39,39 +44,37 @@ To facilitate interpretation and visualization, we employ dimensionality reducti
 
 ## Repository Structure
 
+```
 thoughtminers/
 │
 ├── thoughtminers/
-│   ├── __init__.py                  # Package init; exposes ThoughtMiner class
-│   └── miners.py                    # The ThoughtMiner class for trajectory extraction
+│   ├── __init__.py               # Package init; exposes ThoughtMiner class
+│   └── miners.py                 # The ThoughtMiner class for trajectory extraction
 │
 ├── notebooks/
-│   ├── main_analysis.ipynb          # End-to-end reward model training notebook
-│   └── post_training.ipynb          # Post-training an LLM with Unsloth notebook
+│   ├── main_analysis.ipynb       # End-to-end reward model training notebook
+│   └── post_training.ipynb       # Post-training an LLM with Unsloth notebook
 │
 ├── data/
-│   ├── (your_trajectories.pkl)      # Farmed trajectories for reward model dataset
-│   └── README.md
+│   └── README.md                 # Description of data folder
 │
 ├── models/
-│   ├── (reward_model_math_*.pt)     # Saved reward models
-│   ├── (pca_math_*.pkl)             # Saved PCA objects
-│   └── README.md
+│   └── README.md                 # Description of models folder
 │
 ├── plots/
-│   └── pca_trajectories_3d.png      # Example plot
+│   └── pca_trajectories_3d.png   # Example plot
 │
-├── pyproject.toml                   # Dependency and metadata management
-├── README.md                        # Project overview and instructions
-└── .gitignore                       # Exclude venv, checkpoints, etc.
-
+├── pyproject.toml                # Dependency and metadata management
+├── README.md                     # Project overview and instructions
+└── .gitignore                    # Exclude venv, checkpoints, etc.
+```
 
 ## Getting Started
 
 ### Prerequisites
 
 - Python 3.9 or higher (Python 3.13+ recommended)
-- [uv](https://github.com/astral-sh/uv) (for fast, modern dependency management)
+- [uv](https://github.com/astral-sh/uv) (dependency and environment management tool)
     ```bash
     pip install uv
     ```
@@ -117,6 +120,6 @@ Apache-2.0 license. See [LICENSE](LICENSE) for details.
 
 ## Acknowledgements
 
-Developed by Aleksandrs Baskakovs at Aarhus University, Cognitive Science MSc.
+Developed by Aleksandrs Baskakovs, under supervision of Nicolas Legrand at Aarhus University, Cognitive Science MSc.
 
 ---

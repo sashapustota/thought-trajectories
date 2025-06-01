@@ -1,5 +1,11 @@
 # Optimizing Latent Reasoning in LLMs with *ThoughtMiner*
 
+**Master Thesis**
+Author: *Aleksandrs Baskakovs, Aarhus University, Cognitive Science MSc*
+Supervisor: *Nicolas Legrand*
+Date: *June 2nd, 2025*
+---
+
 ## Overview
 
 **ThoughtMiner** is a toolkit for extracting, analyzing, and modeling latent reasoning in Large Language Models (LLMs) on any kind of reasoning problems.

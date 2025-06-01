@@ -1,5 +1,4 @@
 # Optimizing Latent Reasoning in LLMs with *ThoughtMiner*
----
 
 ## Overview
 

@@ -3,7 +3,7 @@
 This folder contains the two main notebooks for this project:
 
 - **reward_model_training.ipynb** — End-to-end reward model training workflow.
-- **post_training.ipynb** — Post-training and additional experiments.  
+- **post_training.ipynb** — Post-training.  
   [Open in Google Colab](https://drive.google.com/file/d/1uOFQ_JYa90b6JFT53c9xy7ZP8_n0BoLw/view?usp=sharing)
 
 > **Note:** Due to Colab/Jupyter widget metadata, the post-training notebook may not render directly on GitHub.  

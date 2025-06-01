@@ -7,12 +7,6 @@ from transformers.generation.utils import GenerateDecoderOnlyOutput
 from transformers.tokenization_utils_base import PreTrainedTokenizerBase
 from typing import List, Tuple
 
-import torch
-from transformers.modeling_utils import PreTrainedModel
-from transformers.generation.utils import GenerateDecoderOnlyOutput
-from transformers.tokenization_utils_base import PreTrainedTokenizerBase
-from typing import List, Tuple
-
 class ThoughtMiner:
     """
     Utility class to extract hidden state trajectories from language model outputs
@@ -57,7 +51,23 @@ class ThoughtMiner:
             output_hidden_states=True,
         )
         return outputs
+    
+    def forward_pass_unsloth(
+        self, inputs, num_return_sequences: int = 1
+    ) -> GenerateDecoderOnlyOutput:
+        """
+        Performs a forward pass without sampling-based generation.
+        Suitable for compatibility with Unsloth training loop.
 
+        Returns:
+            GenerateDecoderOnlyOutput: Includes logits and hidden states.
+        """
+        outputs = self.model(
+            input_ids=inputs["input_ids"],
+            attention_mask=inputs["attention_mask"],
+            output_hidden_states=True,
+        )
+        return outputs
 
     def get_continuous_thoughts(
         self,
@@ -117,3 +127,57 @@ class ThoughtMiner:
             all_toks.append(toks)
     
         return all_trajs, all_toks
+    
+    def get_continuous_thoughts_unsloth(
+            self,
+            inputs,  # we now need inputs as well
+            outputs,
+            line_delimiter: str = "\n\n",
+        ) -> tuple[list, list]:
+            """
+            Splits output into reasoning steps using line breaks.
+            Works with model() forward pass, not generate().
+            """
+
+            input_ids = inputs["input_ids"]
+            batch_size = input_ids.shape[0]
+
+            # Decode each full input to match with the hidden states
+            decoded_texts = [self.tokenizer.decode(x, skip_special_tokens=True) for x in input_ids]
+
+            # Last hidden layer (batch, seq, dim)
+            hidden_states = outputs.hidden_states[-1]
+
+            continuous_trajectories, token_trajectories = [], []
+
+            for batch_idx in range(batch_size):
+                text = decoded_texts[batch_idx]
+                tokens = input_ids[batch_idx]
+
+                # Split reasoning steps using double line breaks
+                #lines = [line.strip() for line in text.split(line_delimiter) if line.strip()]
+
+                #lines = [chunk.strip() for chunk in text.split("\n\n") if chunk.strip()]
+
+                lines = [chunk.strip()
+                        for chunk in re.split(r'\n\s*\n', text)
+                        if chunk.strip()]
+
+                # Tokenize each line separately
+                step_token_ids = [self.tokenizer(line, return_tensors="pt", add_special_tokens=False).input_ids[0]
+                                for line in lines]
+
+                pointer = 0
+                traj, tok = [], []
+                for step_tokens in step_token_ids:
+                    length = len(step_tokens)
+                    if pointer + length > tokens.size(0):
+                        break  # overflow guard
+                    traj.append(hidden_states[batch_idx, pointer:pointer+length])
+                    tok.append(tokens[pointer:pointer+length])
+                    pointer += length
+
+                continuous_trajectories.append(traj)
+                token_trajectories.append(tok)
+
+            return continuous_trajectories, token_trajectories

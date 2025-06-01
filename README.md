@@ -1,11 +1,4 @@
 # Optimizing Latent Reasoning in LLMs with *ThoughtMiner*
-
-*Aleksandrs Baskakovs*
-
-*Master Thesis*  
-*Aarhus University, Cognitive Science MSc.*
-*Supervised by Nicolas Legrand*
-
 ---
 
 ## Overview
@@ -120,6 +113,6 @@ Apache-2.0 license. See [LICENSE](LICENSE) for details.
 
 ## Acknowledgements
 
-Developed by Aleksandrs Baskakovs, under supervision of Nicolas Legrand at Aarhus University, Cognitive Science MSc.
+Developed by Aleksandrs Baskakovs, under supervision of Nicolas Legrand at Aarhus University, Cognitive Science MSc for the master (product) thesis titled "Optimizing Latent Reasoning in LLMs with **ThoughtMiner**".
 
 ---

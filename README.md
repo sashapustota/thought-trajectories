@@ -5,7 +5,9 @@
 
 
 Author: *Aleksandrs Baskakovs, Aarhus University, Cognitive Science MSc*
+
 Supervisor: *Nicolas Legrand*
+
 Date: *June 2nd, 2025*
 
 ---

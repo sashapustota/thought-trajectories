@@ -1,9 +1,13 @@
 # Optimizing Latent Reasoning in LLMs with *ThoughtMiner*
 
+
 **Master Thesis**
+
+
 Author: *Aleksandrs Baskakovs, Aarhus University, Cognitive Science MSc*
 Supervisor: *Nicolas Legrand*
 Date: *June 2nd, 2025*
+
 ---
 
 ## Overview
